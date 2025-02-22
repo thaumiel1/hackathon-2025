@@ -3,6 +3,7 @@ carx = 100
 cary = 450
 state = 1
 current = 0
+area = 0
 local lines = {}
 local numLines = 1000 -- Number of lines
 local startY = love.graphics.getHeight() / 2
@@ -31,8 +32,8 @@ function love.load()
     for i = 1, numLines do
         table.insert(lines, {y = startY, width = 1, height = 1, delay = (i - 1) * delay, active = false})
     end
-  sideofroad = love.graphics.newImage("assets/side of road4.png")
-
+  grass = love.graphics.newImage("assets/side of road4.png")
+  dessert = love.graphics.newImage("assets/side of road5.png")
 	car = love.graphics.newImage("assets/forward.png")
   day = love.graphics.newImage("assets/day1.png")
   night = love.graphics.newImage("assets/night1.png")
@@ -65,10 +66,11 @@ function love.draw()
     end
     
     love.graphics.setColor(1, 1, 1) 
-    love.graphics.draw(sideofroad, 0, 180, 0, 2, 1.8)
+    --love.graphics.draw(grass, 0, 180, 0, 2, 1.8)
   love.graphics.draw(car, carx, cary)
-  if current == 0 then
+  if current == 0  and area == 0 then
     current = day
+    area = grass
   end
   choose = math.random(1, 5000)
   if choose == 300 then
@@ -77,8 +79,14 @@ function love.draw()
     current = night
   elseif choose == 1000 then
     current = darkNight
+  elseif choose == 3333 then
+    area = grass
+  elseif choose == 1111 then
+    area = dessert
   end
   love.graphics.draw(current, 0, 0)
+  love.graphics.draw(area, 0, 180, 0, 2, 1.8)
+  love.graphics.print(choose, 100, 100)
  end
 
 function love.update(dt)
