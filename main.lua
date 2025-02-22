@@ -68,6 +68,8 @@ function love.draw()
     love.graphics.setColor(1, 1, 1) 
     --love.graphics.draw(grass, 0, 180, 0, 2, 1.8)
   love.graphics.draw(car, carx, cary)
+  
+  --background
   if current == 0  and area == 0 then
     current = day
     area = grass
@@ -87,7 +89,14 @@ function love.draw()
   love.graphics.draw(current, 0, 0)
   love.graphics.draw(area, 0, 180, 0, 2, 1.8)
   love.graphics.print(choose, 100, 100)
- end
+
+  if state == 1 then
+    love.graphics.print("LEFT", 300, 100)
+  elseif state == 2 then
+    love.graphics.print("RIGHT", 300, 100)
+  end
+ 
+end
 
 function love.update(dt)
   local screenHeight = love.graphics.getHeight()
