@@ -32,12 +32,17 @@ function love.load()
     for i = 1, numLines do
         table.insert(lines, {y = startY, width = 1, height = 1, delay = (i - 1) * delay, active = false})
     end
+  --backgrounds ground
   grass = love.graphics.newImage("assets/side of road4.png")
   dessert = love.graphics.newImage("assets/side of road5.png")
-	car = love.graphics.newImage("assets/forward.png")
+  sea = love.graphics.newImage("assets/side of road6.png")
+  city = love.graphics.newImage("assets/side of road7.png")
+  --backgrounds sky
   day = love.graphics.newImage("assets/day1.png")
   night = love.graphics.newImage("assets/night1.png")
   darkNight = love.graphics.newImage("assets/darknight1.png")
+  --car
+  car = love.graphics.newImage("assets/forward.png")
 end
 
 function love.draw()
@@ -85,6 +90,10 @@ function love.draw()
     area = grass
   elseif choose == 1111 then
     area = dessert
+  elseif choose == 1 then
+    area = sea
+  elseif choose == 3278 then
+    area = city
   end
   love.graphics.draw(current, 0, 0)
   love.graphics.draw(area, 0, 180, 0, 2, 1.8)
