@@ -9,6 +9,9 @@ local numLines = 1000 -- Num of lines on road
 local startY = love.graphics.getHeight() / 2
 local delay = 0.35 -- Delay in seconds between each line
 local speed = 1
+local timer = 0
+local stopTimer = false
+local trueTimer = 0
 
 function love.keypressed( key, scancode, isrepeat )
   if key == "right" then
@@ -26,18 +29,23 @@ function love.keypressed( key, scancode, isrepeat )
 end
 
 function love.load()
-  love.graphics.setBackgroundColor(0.3, 0.3, 0.3) -- background/road colour
-    
+  -- background/road colour
+  love.graphics.setBackgroundColor(0.3, 0.3, 0.3)     
     -- Initialize lines with a delay
     for i = 1, numLines do
         table.insert(lines, {y = startY, width = 1, height = 1, delay = (i - 1) * delay, active = false})
     end
+  --backgrounds ground
   grass = love.graphics.newImage("assets/side of road4.png")
   dessert = love.graphics.newImage("assets/side of road5.png")
-	car = love.graphics.newImage("assets/forward.png")
+  sea = love.graphics.newImage("assets/side of road6.png")
+  city = love.graphics.newImage("assets/side of road7.png")
+  --backgrounds sky
   day = love.graphics.newImage("assets/day1.png")
   night = love.graphics.newImage("assets/night1.png")
   darkNight = love.graphics.newImage("assets/darknight1.png")
+  --car
+  car = love.graphics.newImage("assets/forward.png")
 end
 
 function love.draw()
@@ -85,6 +93,10 @@ function love.draw()
     area = grass
   elseif choose == 1111 then
     area = dessert
+  elseif choose == 1 then
+    area = sea
+  elseif choose == 3278 then
+    area = city
   end
   love.graphics.draw(current, 0, 0)
   love.graphics.draw(area, 0, 180, 0, 2, 1.8)
@@ -96,6 +108,8 @@ function love.draw()
     love.graphics.print("RIGHT", 300, 100)
   end
  
+  --timer
+  love.graphics.print("Timer: " .. timer,40,20)
 end
 
 function love.update(dt)
@@ -129,5 +143,15 @@ function love.update(dt)
     carx = carx - 1
   elseif state == 2 and carx < 500 then
     carx = carx + 1
+  end
+  -- Timer that stops if t is pressed
+  if (love.keyboard.isDown('t'))
+  then
+      stopTimer = true
+  end
+  if (stopTimer == false)
+  then
+      trueTimer = trueTimer + dt
+      timer = math.floor(trueTimer)
   end
 end
