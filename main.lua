@@ -11,6 +11,10 @@ local delay = 0.35 -- Delay in seconds between each line
 local speed = 1
 local timer = 0
 local trueTimer = 0
+local cheeseScale = 0.001
+local cheeseTimer = 5
+local cheeseWizz = 0 --radians go brrrrr
+local showCheese = false
 
 local areas = {}
 local timesOfDay = {}
@@ -65,6 +69,7 @@ function love.load()
 
   -- Car
   car = love.graphics.newImage("assets/forward.png")
+  cheese = love.graphics.newImage("assets/cheese.jpg")
 end
  
 function love.draw()
@@ -103,9 +108,22 @@ function love.draw()
   elseif state == 2 then
     love.graphics.print("RIGHT", 300, 100)
   end
-  -- Timer
-  love.graphics.print("Timer: " .. timer, 40, 20)
-  love.graphics.print(questions[math.random(1, 8)], math.random(10, 500), math.random(1, 500))
+ 
+  --cheese banner
+  if (cheeseTimer > 0)
+  then
+    if (showCheese == true)
+    then
+      love.graphics.draw(cheese,360,240,cheeseWizz,cheeseScale)
+    end
+  else
+    cheeseTimer = 5
+    cheeseScale = 0.002
+    showCheese = not showCheese
+  end
+  --timer
+  love.graphics.print("Timer: " .. timer,40,20)
+  love.graphics.print(questions[math.random(1,8)],math.random(10,500),math.random(1,500))
 end
 
 local timeElapsed = 0
@@ -144,21 +162,22 @@ function love.update(dt)
     carx = carx + 1
   end
 
-  trueTimer = trueTimer + dt
-  timer = math.floor(trueTimer)
+  --cheese banner
+  if (cheeseScale < 0.3)
+  then
+    cheeseScale = cheeseScale + 0.002
+  end
 
-  -- Change scenery
-  timeElapsed = timeElapsed + dt
-  if timeElapsed >= 20 then
-    timeElapsed = 0
-    -- Change time of day
-    local timeOfDayKeys = {"day", "night", "darkNight"}
-    currentIndex = (currentIndex % #timeOfDayKeys) + 1
-    current = timesOfDay[timeOfDayKeys[currentIndex]]
 
-    -- Change areas
-    local areaKeys = {"grass", "dessert", "sea", "city"}
-    currentIndex = (currentIndex % #areaKeys) + 1
-    area = areas[areaKeys[currentIndex]]
+  -- Timer that stops if t is pressed
+  if (love.keyboard.isDown('t'))
+  then
+      stopTimer = true
+  end
+  if (stopTimer == false)
+  then
+      trueTimer = trueTimer + dt
+      timer = math.floor(trueTimer)
+      cheeseTimer = cheeseTimer - dt
   end
 end
