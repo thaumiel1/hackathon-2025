@@ -1,9 +1,9 @@
 love.window.setMode(800, 600)
-carx = 100
-cary = 450
-state = 1
-current = 0
-area = 0
+local carx = 100
+local cary = 450
+local state = 1
+local current = 0
+local area = 0
 local lines = {}
 local numLines = 1000 -- Number of lines
 local startY = love.graphics.getHeight() / 2
