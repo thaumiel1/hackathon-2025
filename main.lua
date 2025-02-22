@@ -123,7 +123,6 @@ function love.draw()
   end
   --timer
   love.graphics.print("Timer: " .. timer,40,20)
-  love.graphics.print(questions[math.random(1,8)],math.random(10,500),math.random(1,500))
 end
 
 local timeElapsed = 0
