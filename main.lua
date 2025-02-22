@@ -6,7 +6,8 @@ state = 1
 local lines = {}
 local numLines = 1000 -- Number of lines
 local startY = love.graphics.getHeight() / 2
-local delay = 0.4 -- Delay in seconds between each line
+local delay = 0.35 -- Delay in seconds between each line
+local speed = 1
 
 function love.keypressed( key, scancode, isrepeat )
   if key == "right" then
@@ -22,13 +23,13 @@ function love.keypressed( key, scancode, isrepeat )
 end
 
 function love.load()
-  love.graphics.setBackgroundColor(0.3, 0.3, 0.3) -- Dark background for contrast
+  love.graphics.setBackgroundColor(0.3, 0.3, 0.3) -- background/road colour
     
     -- Initialize lines with a delay
     for i = 1, numLines do
         table.insert(lines, {y = startY, width = 1, height = 1, delay = (i - 1) * delay, active = false})
     end
-  sideofroad = love.graphics.newImage("assets/side of road2.png")
+  sideofroad = love.graphics.newImage("assets/side of road4.png")
 
 	car = love.graphics.newImage("assets/100x100forward.png")
 end
@@ -43,14 +44,18 @@ function love.draw()
             love.graphics.setLineWidth(line.width)
             love.graphics.rectangle("fill", 0, line.y - line.height / 2, screenWidth, line.height)
 
-            -- Draw the yellow middle
-            local yellowWidth = line.width * 0.5 -- Adjust the factor to control the width of the yellow part
-            local yellowHeight = line.height * 1.0 -- Adjust the factor to control the height of the yellow part
+            -- Draw the yellow trapezium
+            local yellowWidth = line.width * 0.5 -- Adjust yellow width
+            local yellowHeight = line.height * 1.0 -- Adjust yellow height
             local yellowStartX = (screenWidth - yellowWidth) / 2
             local yellowStartY = line.y - yellowHeight / 2
             love.graphics.setColor(1, 1, 0)
-            love.graphics.setLineWidth(yellowWidth)
-            love.graphics.rectangle("fill", yellowStartX, yellowStartY, yellowWidth, yellowHeight)
+            love.graphics.polygon("fill", 
+                yellowStartX, yellowStartY,
+                yellowStartX + yellowWidth, yellowStartY,
+                yellowStartX + yellowWidth * 1.2, yellowStartY + yellowHeight,
+                yellowStartX - yellowWidth * 0.2, yellowStartY + yellowHeight
+            )
         end
     end
     
@@ -73,15 +78,15 @@ function love.update(dt)
 
         if line.active then
             if line.y < screenHeight then
-                line.y = line.y + 250 * dt -- Speed of the line moving down
-                line.width = line.width + 30 * dt -- Speed of the line getting thicker
-                line.height = line.height + 30 * dt -- Speed of the line getting taller
+                line.y = line.y + speed * 250 * dt -- Speed of the line moving down
+                line.width = line.width + speed * 30 * dt -- Speed of the line getting thicker
+                line.height = line.height + speed * 30 * dt -- Speed of the line getting taller
             else
                 -- Reset the line to the middle of the screen
                 line.y = startY
                 line.width = 1
                 line.height = 1
-                line.delay = delay * numLines -- Reset the delay for the next cycle
+                line.delay = delay * numLines 
                 line.active = false
             end
         end
