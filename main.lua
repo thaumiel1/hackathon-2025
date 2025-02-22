@@ -2,7 +2,7 @@ love.window.setMode(800, 600)
 carx = 100
 cary = 450
 state = 1
-
+current = 0
 local lines = {}
 local numLines = 1000 -- Number of lines
 local startY = love.graphics.getHeight() / 2
@@ -35,6 +35,8 @@ function love.load()
 
 	car = love.graphics.newImage("assets/forward.png")
   day = love.graphics.newImage("assets/day1.png")
+  night = love.graphics.newImage("assets/night1.png")
+  darkNight = love.graphics.newImage("assets/darknight1.png")
 end
 
 function love.draw()
@@ -64,9 +66,19 @@ function love.draw()
     
     love.graphics.setColor(1, 1, 1) 
     love.graphics.draw(sideofroad, 0, 180, 0, 2, 1.8)
-
   love.graphics.draw(car, carx, cary)
-  love.graphics.draw(day, 0, 0)
+  if current == 0 then
+    current = day
+  end
+  choose = math.random(1, 5000)
+  if choose == 300 then
+    current = day
+  elseif choose == 4000 then
+    current = night
+  elseif choose == 1000 then
+    current = darkNight
+  end
+  love.graphics.draw(current, 0, 0)
  end
 
 function love.update(dt)
