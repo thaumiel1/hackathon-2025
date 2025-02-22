@@ -1,5 +1,5 @@
 function getNextQuestion(index)
-    questions = {
+    local questions = {
     "Are you good at driving?",
     "Are you sure?",
     "Do you speed?",
