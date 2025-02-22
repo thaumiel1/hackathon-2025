@@ -14,6 +14,8 @@ function love.keypressed( key, scancode, isrepeat )
    state = state + 1
   elseif key == "left" then
     state = state - 1
+  elseif key == "escape" then
+    love.event.quit()
   end
   if state > 3 then
     state = 3
@@ -31,7 +33,8 @@ function love.load()
     end
   sideofroad = love.graphics.newImage("assets/side of road4.png")
 
-	car = love.graphics.newImage("assets/100x100forward.png")
+	car = love.graphics.newImage("assets/forward.png")
+  day = love.graphics.newImage("assets/day1.png")
 end
 
 function love.draw()
@@ -63,6 +66,7 @@ function love.draw()
     love.graphics.draw(sideofroad, 0, 180, 0, 2, 1.8)
 
   love.graphics.draw(car, carx, cary)
+  love.graphics.draw(day, 0, 0)
  end
 
 function love.update(dt)
