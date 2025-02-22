@@ -1,6 +1,6 @@
 love.window.setMode(800, 600)
 carx = 100
-cary = 500
+cary = 450
 state = 1
 
 local lines = {}
