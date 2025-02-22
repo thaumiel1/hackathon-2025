@@ -55,13 +55,13 @@ function love.draw()
             love.graphics.setLineWidth(yellowWidth)
             love.graphics.rectangle("fill", yellowStartX, yellowStartY, yellowWidth, yellowHeight)
         end
-        love.graphics.draw(day, 0, 0)
     end
     
     love.graphics.setColor(1, 1, 1) 
     love.graphics.draw(sideofroad, 0, 180, 0, 2, 1.8)
 
   love.graphics.draw(car, carx, cary)
+  love.graphics.draw(day, 0, 0)
  end
 
 function love.update(dt)
