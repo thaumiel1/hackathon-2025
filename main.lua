@@ -96,19 +96,9 @@ function love.draw()
     end
   end
   love.graphics.setColor(1, 1, 1) 
-  -- love.graphics.draw(grass, 0, 180, 0, 2, 1.8)
   love.graphics.draw(car, carx, cary)
-
   love.graphics.draw(current, 0, 0)
   love.graphics.draw(area, 0, 180, 0, 2, 1.8)
-
-  love.graphics.print(choose or "", 100, 100)
-  if state == 1 then
-    love.graphics.print("LEFT", 300, 100)
-  elseif state == 2 then
-    love.graphics.print("RIGHT", 300, 100)
-  end
- 
   --cheese banner
   if (cheeseTimer > 0)
   then
@@ -169,14 +159,7 @@ function love.update(dt)
 
 
   -- Timer that stops if t is pressed
-  if (love.keyboard.isDown('t'))
-  then
-      stopTimer = true
-  end
-  if (stopTimer == false)
-  then
-      trueTimer = trueTimer + dt
-      timer = math.floor(trueTimer)
-      cheeseTimer = cheeseTimer - dt
-  end
+  trueTimer = trueTimer + dt
+  timer = math.floor(trueTimer)
+  cheeseTimer = cheeseTimer - dt
 end
