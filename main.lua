@@ -13,6 +13,18 @@ local timer = 0
 local stopTimer = false
 local trueTimer = 0
 
+--question list
+  local questions = {
+  "Are you good at driving?",
+  "Are you sure?",
+  "Do you speed?",
+  "Will you speed?",
+  "When will you speed?",
+  "Would you drive after 1 pint of beer?",
+  "After 2....?",
+  "Should you brake check a cyclist?"
+}
+
 function love.keypressed( key, scancode, isrepeat )
   if key == "right" then
    state = state + 1
@@ -50,7 +62,6 @@ end
 
 function love.draw()
   local screenWidth = love.graphics.getWidth()
-    
     for _, line in ipairs(lines) do
         if line.active then
             -- Draw the grey sides
@@ -72,11 +83,9 @@ function love.draw()
             )
         end
     end
-    
     love.graphics.setColor(1, 1, 1) 
     --love.graphics.draw(grass, 0, 180, 0, 2, 1.8)
   love.graphics.draw(car, carx, cary)
-  
   --background
   if current == 0  and area == 0 then
     current = day
@@ -101,15 +110,14 @@ function love.draw()
   love.graphics.draw(current, 0, 0)
   love.graphics.draw(area, 0, 180, 0, 2, 1.8)
   love.graphics.print(choose, 100, 100)
-
   if state == 1 then
     love.graphics.print("LEFT", 300, 100)
   elseif state == 2 then
     love.graphics.print("RIGHT", 300, 100)
   end
- 
   --timer
   love.graphics.print("Timer: " .. timer,40,20)
+  love.graphics.print(questions[math.random(1,8)],math.random(10,500),math.random(1,500))
 end
 
 function love.update(dt)
