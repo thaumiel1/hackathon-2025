@@ -31,6 +31,7 @@ function love.load()
   sideofroad = love.graphics.newImage("assets/side of road2.png")
 
 	car = love.graphics.newImage("assets/forward.png")
+  day = love.graphics.newImage("assets/day1.png")
 end
 
 function love.draw()
@@ -52,6 +53,7 @@ function love.draw()
             love.graphics.setLineWidth(yellowWidth)
             love.graphics.rectangle("fill", yellowStartX, yellowStartY, yellowWidth, yellowHeight)
         end
+        love.graphics.draw(day, 0, 0)
     end
     
     love.graphics.setColor(1, 1, 1) 
