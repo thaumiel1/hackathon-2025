@@ -12,6 +12,11 @@ local speed = 1
 local timer = 0
 local stopTimer = false
 local trueTimer = 0
+local cheeseScale = 0.001
+local cheeseTimer = 5
+local cheeseWizz = 0 --radians go brrrrr
+local showCheese = false
+
 
 function love.keypressed( key, scancode, isrepeat )
   if key == "right" then
@@ -46,6 +51,7 @@ function love.load()
   darkNight = love.graphics.newImage("assets/darknight1.png")
   --car
   car = love.graphics.newImage("assets/forward.png")
+  cheese = love.graphics.newImage("assets/cheese.jpg")
 end
 
 function love.draw()
@@ -108,6 +114,18 @@ function love.draw()
     love.graphics.print("RIGHT", 300, 100)
   end
  
+  --cheese banner
+  if (cheeseTimer > 0)
+  then
+    if (showCheese == true)
+    then
+      love.graphics.draw(cheese,360,240,cheeseWizz,cheeseScale)
+    end
+  else
+    cheeseTimer = 5
+    cheeseScale = 0.002
+    showCheese = not showCheese
+  end
   --timer
   love.graphics.print("Timer: " .. timer,40,20)
 end
@@ -144,6 +162,14 @@ function love.update(dt)
   elseif state == 2 and carx < 500 then
     carx = carx + 1
   end
+
+  --cheese banner
+  if (cheeseScale < 0.3)
+  then
+    cheeseScale = cheeseScale + 0.002
+  end
+
+
   -- Timer that stops if t is pressed
   if (love.keyboard.isDown('t'))
   then
@@ -153,5 +179,6 @@ function love.update(dt)
   then
       trueTimer = trueTimer + dt
       timer = math.floor(trueTimer)
+      cheeseTimer = cheeseTimer - dt
   end
 end
