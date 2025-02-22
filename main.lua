@@ -30,7 +30,7 @@ function love.load()
     end
   sideofroad = love.graphics.newImage("assets/side of road2.png")
 
-	car = love.graphics.newImage("assets/100x100forward.png")
+	car = love.graphics.newImage("assets/forward.png")
 end
 
 function love.draw()
