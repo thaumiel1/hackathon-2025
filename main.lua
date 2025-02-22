@@ -26,8 +26,8 @@ function love.keypressed( key, scancode, isrepeat )
 end
 
 function love.load()
-  love.graphics.setBackgroundColor(0.3, 0.3, 0.3) -- background/road colour
-    
+  -- background/road colour
+  love.graphics.setBackgroundColor(0.3, 0.3, 0.3)     
     -- Initialize lines with a delay
     for i = 1, numLines do
         table.insert(lines, {y = startY, width = 1, height = 1, delay = (i - 1) * delay, active = false})
