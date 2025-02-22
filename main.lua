@@ -13,6 +13,8 @@ function love.keypressed( key, scancode, isrepeat )
    state = state + 1
   elseif key == "left" then
     state = state - 1
+  elseif key == "escape" then
+    love.event.quit()
   end
   if state > 3 then
     state = 3
