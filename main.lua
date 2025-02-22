@@ -5,7 +5,7 @@ local state = 1
 local current = 0
 local area = 0
 local lines = {}
-local numLines = 1000 -- Num of lines on road
+local numLines = 1000 -- Number of lines
 local startY = love.graphics.getHeight() / 2
 local delay = 0.35 -- Delay in seconds between each line
 local speed = 1
@@ -59,7 +59,7 @@ function love.load()
   --car
   car = love.graphics.newImage("assets/forward.png")
 end
-
+ 
 function love.draw()
   local screenWidth = love.graphics.getWidth()
     for _, line in ipairs(lines) do
