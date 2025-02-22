@@ -9,6 +9,9 @@ local numLines = 1000 -- Number of lines
 local startY = love.graphics.getHeight() / 2
 local delay = 0.35 -- Delay in seconds between each line
 local speed = 1
+local timer = 0
+local stopTimer = false
+local trueTimer = 0
 
 function love.keypressed( key, scancode, isrepeat )
   if key == "right" then
@@ -105,6 +108,8 @@ function love.draw()
     love.graphics.print("RIGHT", 300, 100)
   end
  
+  --timer
+  love.graphics.print("Timer: " .. timer,40,20)
 end
 
 function love.update(dt)
@@ -138,5 +143,15 @@ function love.update(dt)
     carx = carx - 1
   elseif state == 2 and carx < 500 then
     carx = carx + 1
+  end
+  -- Timer that stops if t is pressed
+  if (love.keyboard.isDown('t'))
+  then
+      stopTimer = true
+  end
+  if (stopTimer == false)
+  then
+      trueTimer = trueTimer + dt
+      timer = math.floor(trueTimer)
   end
 end
