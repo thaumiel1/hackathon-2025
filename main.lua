@@ -15,7 +15,6 @@ local cheeseScale = 0.001
 local cheeseTimer = 5
 local cheeseWizz = 0 --radians go brrrrr
 local showCheese = false
-
 local areas = {}
 local timesOfDay = {}
 
@@ -53,20 +52,18 @@ function love.load()
   for i = 1, numLines do
     table.insert(lines, {y = startY, width = 1, height = 1, delay = (i - 1) * delay, active = false})
   end
-  
   -- Load images for areas
+  --ground
   areas["grass"] = love.graphics.newImage("assets/side of road5.png")
   areas["dessert"] = love.graphics.newImage("assets/side of road4.png")
   areas["sea"] = love.graphics.newImage("assets/side of road6.png")
   areas["city"] = love.graphics.newImage("assets/side of road7.png")
-
+  --sky
   timesOfDay["day"] = love.graphics.newImage("assets/day1.png")
   timesOfDay["night"] = love.graphics.newImage("assets/night1.png")
   timesOfDay["darkNight"] = love.graphics.newImage("assets/darknight1.png")
-
   current = timesOfDay["day"]
   area = areas["grass"]
-
   -- Car
   car = love.graphics.newImage("assets/forward.png")
   cheese = love.graphics.newImage("assets/cheese.jpg")
