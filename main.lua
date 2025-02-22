@@ -16,7 +16,7 @@ function love.keypressed( key, scancode, isrepeat )
 end
 
 function love.load()
-	car = love.graphics.newImage("100x100forward.png")
+	car = love.graphics.newImage("assets/100x100forward.png")
 end
 
 function love.draw()
