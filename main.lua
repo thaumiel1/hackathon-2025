@@ -18,8 +18,8 @@ function love.keypressed( key, scancode, isrepeat )
   elseif key == "escape" then
     love.event.quit()
   end
-  if state > 3 then
-    state = 3
+  if state > 2 then
+    state = 2
   elseif state < 1 then
     state = 1
   end
@@ -118,11 +118,7 @@ function love.update(dt)
   
   if state == 1 and carx > 100 then
     carx = carx - 1
-  elseif state == 2 and carx > 300 then
-    carx = carx - 1
-  elseif state == 2 and carx < 300 then
-    carx = carx + 1
-  elseif state == 3 and carx < 600 then
+  elseif state == 2 and carx < 500 then
     carx = carx + 1
   end
 end
