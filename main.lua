@@ -5,6 +5,19 @@ local state = 1
 local current = 1
 local current2 = 1
 
+local numbers = {3.14159, 
+"6.02214*10^-23", 
+299792458, 
+"e=mc^2", 
+"9223372036854775807", 
+"O(nlog n)", 
+"01123581321345589144", 
+8008,
+42,
+"69!",
+"sqrt(-1)",
+"sin^2(x) + cos^2(x)"}
+
 local lines = {}
 local numLines = 1000 -- Number of lines
 local startY = love.graphics.getHeight() / 2
@@ -18,6 +31,7 @@ local cheeseScale = 0.001
 local cheeseTimer = 10
 local cheeseReplacement = {}
 local cheeseCounter = 1
+
 
 
 
@@ -55,6 +69,7 @@ function love.load()
   for i = 1, numLines do
     table.insert(lines, {y = startY, width = 1, height = 1, delay = (i - 1) * delay, active = false})
   end
+  
   -- Load images for areas
   --ground
   areas[1] = love.graphics.newImage("assets/side of road5.png")
