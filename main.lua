@@ -139,7 +139,9 @@ function love.draw()
     cheeseScale = 0.002
   end
   --display "insurance cost"
-  love.graphics.print("Insurance: £"..numbers[displayNum], 500, 20)
+  love.graphics.print("Insurance: £"..numbers[displayNum], 40, 20)
+  --the end times
+  love.graphics.draw(trophy, 325, 10)
 end
 
 function love.update(dt)
