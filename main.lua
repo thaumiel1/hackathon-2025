@@ -86,7 +86,7 @@ function love.load()
 
   -- Cheese Mayhem
   cheese = love.graphics.newImage("assets/cheese.jpg")
-  for i = 1,15 do
+  for i = 1,13 do
     cheeseReplacement[i] = {love.graphics.newImage("assets/Slide"..i..".png"),0}
   end
 end
@@ -124,7 +124,7 @@ function love.draw()
     cheeseTimer = 10
     --change displayNum
     displayNum = math.random(2, 12)
-    if cheeseCounter ~= 15 then
+    if cheeseCounter ~= 13 then
       cheeseCounter = cheeseCounter + 1
     end
   end
