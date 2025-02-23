@@ -4,8 +4,10 @@ local carCoord = {100,450}
 local state = 1
 local current = 1
 local current2 = 1
-
-local numbers = {3.14159, 
+local displayNum = 1
+local numbers = {
+0,
+"3.1415926535897932384626433", 
 "6.02214*10^-23", 
 299792458, 
 "e=mc^2", 
@@ -118,9 +120,11 @@ function love.draw()
   love.graphics.draw(car, carCoord[1], carCoord[2])
   --draw background
   if cheeseTimer < 0 then
-    current = math.random(1,3)
-    current2 = math.random(1,4)
+    current = math.random(3)
+    current2 = math.random(4)
     cheeseTimer = 10
+    --change displayNum
+    displayNum = math.random(2, 12)
     if cheeseCounter ~= 15 then
       cheeseCounter = cheeseCounter + 1
     end
@@ -135,12 +139,8 @@ function love.draw()
   end
   --timer
   love.graphics.print("Timer: " .. math.floor(trueTimer),40,20)
-  --TROLL
-  love.graphics.setColor(255, 0, 0)
-  love.graphics.print(numbers[math.random(11)], math.random(600), math.random(600))
-  love.graphics.print(numbers[math.random(11)], math.random(600), math.random(600))
-  love.graphics.print(numbers[math.random(11)], math.random(600), math.random(600))
-  love.graphics.setColor(0.2, 0.2, 0.2)
+  --display "insurance cost"
+  love.graphics.print("Insurance: £"..numbers[displayNum], 500, 20)
 end
 
 function love.update(dt)
