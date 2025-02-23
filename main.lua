@@ -12,7 +12,7 @@ local numbers = {3.14159,
 "9223372036854775807", 
 "O(nlog n)", 
 "01123581321345589144", 
-8008,
+80085,
 42,
 "69!",
 "sqrt(-1)",
@@ -124,6 +124,12 @@ function love.draw()
   end
   --timer
   love.graphics.print("Timer: " .. math.floor(trueTimer),40,20)
+  --TROLL
+  love.graphics.setColor(255, 0, 0)
+  love.graphics.print(numbers[math.random(11)], math.random(600), math.random(600))
+  love.graphics.print(numbers[math.random(11)], math.random(600), math.random(600))
+  love.graphics.print(numbers[math.random(11)], math.random(600), math.random(600))
+  love.graphics.setColor(0.2, 0.2, 0.2)
 end
 
 function love.update(dt)
