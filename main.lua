@@ -133,7 +133,7 @@ function love.draw()
   love.graphics.draw(timesOfDay[current], 0, 0)
   love.graphics.draw(areas[current2], 0, 180, 0, 2, 1.8)
   --cheese banner
-  if (cheeseTimer > 0 and cheeseTimer < 5) then
+  if (cheeseTimer > 0 and cheeseTimer < 5 and cheeseCounter ~= 14) then
     love.graphics.draw(cheeseReplacement[cheeseCounter][1],400-(720*cheeseScale/2),240-(405*cheeseScale/2),0,cheeseScale)
   else
     cheeseScale = 0.002
