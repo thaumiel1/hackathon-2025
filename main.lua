@@ -126,7 +126,7 @@ function love.draw()
     cheeseTimer = 10
     --change displayNum
     displayNum = math.random(2, 12)
-    if cheeseCounter ~= 15 then
+    if cheeseCounter ~= 14 then
       cheeseCounter = cheeseCounter + 1
     end
   end
@@ -144,7 +144,7 @@ function love.draw()
   --display "insurance cost"
   love.graphics.print("Insurance: £"..numbers[displayNum], 500, 20)
   --the end times 
-  if cheeseCounter == 1 then
+  if cheeseCounter == 14 then
     love.graphics.draw(trophy, 250, 50)
 
   end
