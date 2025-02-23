@@ -9,7 +9,6 @@ local numLines = 1000 -- Number of lines
 local startY = love.graphics.getHeight() / 2
 local delay = 0.35 -- Delay in seconds between each line
 local speed = 1
-local timer = 0
 local trueTimer = 0
 local cheeseScale = 0.001
 local cheeseTimer = 5
@@ -77,7 +76,6 @@ function love.draw()
       love.graphics.setColor(0.2, 0.2, 0.2)
       love.graphics.setLineWidth(line.width)
       love.graphics.rectangle("fill", 0, line.y - line.height / 2, screenWidth, line.height)
-
       -- Draw the yellow trapezium
       local yellowWidth = line.width * 0.5 -- Adjust yellow width
       local yellowHeight = line.height * 1.0 -- Adjust yellow height
@@ -93,12 +91,13 @@ function love.draw()
     end
   end
   love.graphics.setColor(1, 1, 1) 
+  --draw car
   love.graphics.draw(car, carx, cary)
+  --draw background
   love.graphics.draw(current, 0, 0)
   love.graphics.draw(area, 0, 180, 0, 2, 1.8)
   --cheese banner
-  if (cheeseTimer > 0)
-  then
+  if (cheeseTimer > 0) then
     if (showCheese == true)
     then
       love.graphics.draw(cheese,360,240,cheeseWizz,cheeseScale)
@@ -109,15 +108,11 @@ function love.draw()
     showCheese = not showCheese
   end
   --timer
-  love.graphics.print("Timer: " .. timer,40,20)
+  love.graphics.print("Timer: " .. math.floor(trueTimer),40,20)
 end
-
-local timeElapsed = 0
-local currentIndex = 1
 
 function love.update(dt)
   local screenHeight = love.graphics.getHeight()
-    
   for _, line in ipairs(lines) do
     if line.delay > 0 then
       line.delay = line.delay - dt
@@ -125,7 +120,6 @@ function love.update(dt)
         line.active = true
       end
     end
-
     if line.active then
       if line.y < screenHeight then
         line.y = line.y + speed * 250 * dt -- Speed of the line moving down
@@ -141,22 +135,17 @@ function love.update(dt)
       end
     end
   end
-
+  --car movement
   if state == 1 and carx > 100 then
     carx = carx - 1
   elseif state == 2 and carx < 500 then
     carx = carx + 1
   end
-
   --cheese banner
   if (cheeseScale < 0.3)
   then
     cheeseScale = cheeseScale + 0.002
   end
-
-
-  -- Timer that stops if t is pressed
   trueTimer = trueTimer + dt
-  timer = math.floor(trueTimer)
   cheeseTimer = cheeseTimer - dt
 end
