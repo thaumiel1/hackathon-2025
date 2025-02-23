@@ -52,6 +52,7 @@ function love.load()
   for i = 1, numLines do
     table.insert(lines, {y = startY, width = 1, height = 1, delay = (i - 1) * delay, active = false})
   end
+  
   -- Load images for areas
   --ground
   areas[1] = love.graphics.newImage("assets/side of road5.png")
