@@ -130,6 +130,7 @@ function love.draw()
   if cheeseCounter == 14 then
     love.graphics.clear()
     love.graphics.draw(trophy, 275, 10)
+    love.graphics.print("Insurance: £10000000000000000000000000000000000000000000000000000000000000000000000000000", 10, 300)
   end
 end
 
