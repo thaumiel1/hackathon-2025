@@ -66,15 +66,17 @@ function love.load()
   initConstants()
   initVariables()
   loadImages()
+  initLines()
+
   -- background/road colour
   love.graphics.setBackgroundColor(0.3, 0.3, 0.3)     
-  -- Initialize lines with a delay
+end
+
+function initLines()
+-- Initialize lines 
   for i = 1, numLines do
     table.insert(lines, {y = startY, width = 1, height = 1, delay = (i - 1) * delay, active = false})
   end
-  
-
-
 end
 
  
@@ -149,7 +151,7 @@ function love.draw()
   end
 end
 
-function love.update(dt)
+function updateLines(dt)
   local screenHeight = love.graphics.getHeight()
   for _, line in ipairs(lines) do
     if line.delay > 0 then
@@ -173,16 +175,30 @@ function love.update(dt)
       end
     end
   end
+end
+
+function moveCar()
   --car movement
   if state == 1 and carCoord[1]> 100 then
     carCoord[1] = carCoord[1] - 1
   elseif state == 2 and carCoord[1] < 500 then
     carCoord[1] = carCoord[1] + 1
   end
-  --cheese banner
+end
+
+function updateCheeseBanner(dt)
+--cheese banner
   if (cheeseScale < 0.3)
   then
     cheeseScale = cheeseScale + 0.002
   end
   cheeseTimer = cheeseTimer - dt
+end
+
+function love.update(dt)
+
+  updateLines(dt)
+  moveCar()
+  updateCheeseBanner(dt)
+
 end
