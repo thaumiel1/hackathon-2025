@@ -1,37 +1,28 @@
-love.window.setMode(800, 600)
 
-local carCoord = {100,450}
-local state = 1
-local current = 1
-local current2 = 1
-local numbers = {
-0,
-"e^i(pi)",
-"6.02214*10^-23",
-"1.6180339887498948482",
-"3.1415926535897932384626433", 
-42,
-80085,
-299792458, 
-"9223372036854775807", 
-"01123581321345589144", 
-"69!"}
 
-local lines = {}
-local numLines = 1000 -- Number of lines
-local startY = love.graphics.getHeight() / 2
-local delay = 0.35 -- Delay in seconds between each line
-local speed = 1
-local areas = {}
-local timesOfDay = {}
+function initConstants()
+  love.window.setMode(800, 600)
+  numLines = 1000
+  delay = 0.35
+  speed = 1
+  cheeseScale = 0.001
+end
 
---Cheese Squad
-local cheeseScale = 0.001
-local cheeseTimer = 10
-local cheeseReplacement = {}
-local cheeseCounter = 1
-local cheeseScore = 0
-
+function initVariables()
+  carCoord = {100, 450}
+  state = 1
+  current = 1
+  current2 = 1
+  cheeseTimer = 10
+  cheeseCounter = 1
+  cheeseScore = 0
+  numbers = {0, "e^i(pi)", "6.02214*10^-23", "1.6180339887498948482", "3.1415926535897932384626433", 42, 80085, 299792458, "9223372036854775807", "01123581321345589144", "69!"}
+  lines = {}
+  startY = love.graphics.getHeight() / 2
+  areas = {}
+  timesOfDay = {}
+  cheeseReplacement = {}
+end
 
 function love.keypressed(key, scancode, isrepeat)
   if key == "right" then
@@ -49,6 +40,8 @@ function love.keypressed(key, scancode, isrepeat)
 end
 
 function love.load()
+  initConstants()
+  initVariables()
   -- background/road colour
   love.graphics.setBackgroundColor(0.3, 0.3, 0.3)     
   -- Initialize lines with a delay
