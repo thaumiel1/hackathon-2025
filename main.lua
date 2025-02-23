@@ -5,6 +5,19 @@ local state = 1
 local current = 1
 local current2 = 1
 
+local numbers = {3.14159, 
+"6.02214*10^-23", 
+299792458, 
+"e=mc^2", 
+"9223372036854775807", 
+"O(nlog n)", 
+"01123581321345589144", 
+8008,
+42,
+"69!",
+"sqrt(-1)",
+"sin^2(x) + cos^2(x)"}
+
 local lines = {}
 local numLines = 1000 -- Number of lines
 local startY = love.graphics.getHeight() / 2
@@ -17,6 +30,7 @@ local trueTimer = 0
 local cheeseScale = 0.001
 local cheeseTimer = 10
 local showCheese = false
+
 
 --question list
 local questions = {
