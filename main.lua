@@ -84,16 +84,17 @@ function love.load()
   timesOfDay[3] = love.graphics.newImage("assets/darknight1.png")
   -- Car
   car = love.graphics.newImage("assets/forward.png")
-
   -- Cheese Mayhem
-  cheese = love.graphics.newImage("assets/cheese.jpg")
   for i = 1,15 do
     cheeseReplacement[i] = {love.graphics.newImage("assets/Slide"..i..".png"),0}
   end
+  --trophy
+  trophy = love.graphics.newImage("assets/hooray.jpg")
 end
 
  
 function love.draw()
+  -- draw road
   local screenWidth = love.graphics.getWidth()
   for _, line in ipairs(lines) do
     if line.active then
@@ -129,6 +130,7 @@ function love.draw()
       cheeseCounter = cheeseCounter + 1
     end
   end
+  --background
   love.graphics.draw(timesOfDay[current], 0, 0)
   love.graphics.draw(areas[current2], 0, 180, 0, 2, 1.8)
   --cheese banner
@@ -141,6 +143,12 @@ function love.draw()
   love.graphics.print("Timer: " .. math.floor(trueTimer),40,20)
   --display "insurance cost"
   love.graphics.print("Insurance: £"..numbers[displayNum], 500, 20)
+  --the end times 
+  if cheeseCounter == 1 then
+    love.graphics.draw(trophy, 250, 50)
+
+  end
+
 end
 
 function love.update(dt)
