@@ -1,9 +1,6 @@
 love.window.setMode(800, 600)
-local carx = 100
-local cary = 450
+local carCoord = {100,450}
 local state = 1
-local current = 0
-local area = 0
 local lines = {}
 local numLines = 1000 -- Number of lines
 local startY = love.graphics.getHeight() / 2
@@ -12,11 +9,11 @@ local speed = 1
 local trueTimer = 0
 local cheeseScale = 0.001
 local cheeseTimer = 5
-local cheeseWizz = 0 --radians go brrrrr
 local showCheese = false
 local areas = {}
 local timesOfDay = {}
-
+local current = 1
+local current2 = 1
 --question list
 local questions = {
   "Are you good at driving?",
@@ -53,16 +50,14 @@ function love.load()
   end
   -- Load images for areas
   --ground
-  areas["grass"] = love.graphics.newImage("assets/side of road5.png")
-  areas["dessert"] = love.graphics.newImage("assets/side of road4.png")
-  areas["sea"] = love.graphics.newImage("assets/side of road6.png")
-  areas["city"] = love.graphics.newImage("assets/side of road7.png")
+  areas[1] = love.graphics.newImage("assets/side of road5.png")
+  areas[2] = love.graphics.newImage("assets/side of road4.png")
+  areas[3] = love.graphics.newImage("assets/side of road6.png")
+  areas[4] = love.graphics.newImage("assets/side of road7.png")
   --sky
-  timesOfDay["day"] = love.graphics.newImage("assets/day1.png")
-  timesOfDay["night"] = love.graphics.newImage("assets/night1.png")
-  timesOfDay["darkNight"] = love.graphics.newImage("assets/darknight1.png")
-  current = timesOfDay["day"]
-  area = areas["grass"]
+  timesOfDay[1] = love.graphics.newImage("assets/day1.png")
+  timesOfDay[2] = love.graphics.newImage("assets/night1.png")
+  timesOfDay[3] = love.graphics.newImage("assets/darknight1.png")
   -- Car
   car = love.graphics.newImage("assets/forward.png")
   cheese = love.graphics.newImage("assets/cheese.jpg")
@@ -92,15 +87,19 @@ function love.draw()
   end
   love.graphics.setColor(1, 1, 1) 
   --draw car
-  love.graphics.draw(car, carx, cary)
+  love.graphics.draw(car, carCoord[1], carCoord[2])
   --draw background
-  love.graphics.draw(current, 0, 0)
-  love.graphics.draw(area, 0, 180, 0, 2, 1.8)
+  if true then
+    current = math.random(1,3)
+    current2 = math.random(1,4)
+  end
+  love.graphics.draw(timesOfDay[current], 0, 0)
+  love.graphics.draw(areas[current2], 0, 180, 0, 2, 1.8)
   --cheese banner
   if (cheeseTimer > 0) then
     if (showCheese == true)
     then
-      love.graphics.draw(cheese,360,240,cheeseWizz,cheeseScale)
+      love.graphics.draw(cheese,360,240,0,cheeseScale)
     end
   else
     cheeseTimer = 5
@@ -136,10 +135,10 @@ function love.update(dt)
     end
   end
   --car movement
-  if state == 1 and carx > 100 then
-    carx = carx - 1
-  elseif state == 2 and carx < 500 then
-    carx = carx + 1
+  if state == 1 and carCoord[1]> 100 then
+    carCoord[1] = carCoord[1] - 1
+  elseif state == 2 and carCoord[1] < 500 then
+    carCoord[1] = carCoord[1] + 1
   end
   --cheese banner
   if (cheeseScale < 0.3)
