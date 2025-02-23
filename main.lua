@@ -1,19 +1,23 @@
 love.window.setMode(800, 600)
+
 local carCoord = {100,450}
 local state = 1
+local current = 1
+local current2 = 1
+
 local lines = {}
 local numLines = 1000 -- Number of lines
 local startY = love.graphics.getHeight() / 2
 local delay = 0.35 -- Delay in seconds between each line
 local speed = 1
-local trueTimer = 0
-local cheeseScale = 0.001
-local cheeseTimer = 5
-local showCheese = false
 local areas = {}
 local timesOfDay = {}
-local current = 1
-local current2 = 1
+
+local trueTimer = 0
+local cheeseScale = 0.001
+local cheeseTimer = 10
+local showCheese = false
+
 --question list
 local questions = {
   "Are you good at driving?",
@@ -89,20 +93,17 @@ function love.draw()
   --draw car
   love.graphics.draw(car, carCoord[1], carCoord[2])
   --draw background
-  if true then
+  if cheeseTimer < 0 then
     current = math.random(1,3)
     current2 = math.random(1,4)
+    cheeseTimer = 10
   end
   love.graphics.draw(timesOfDay[current], 0, 0)
   love.graphics.draw(areas[current2], 0, 180, 0, 2, 1.8)
   --cheese banner
-  if (cheeseTimer > 0) then
-    if (showCheese == true)
-    then
-      love.graphics.draw(cheese,360,240,0,cheeseScale)
-    end
+  if (cheeseTimer > 0 and cheeseTimer < 5) then
+    love.graphics.draw(cheese,360,240,0,cheeseScale)
   else
-    cheeseTimer = 5
     cheeseScale = 0.002
     showCheese = not showCheese
   end
