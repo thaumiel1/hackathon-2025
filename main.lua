@@ -29,7 +29,10 @@ local timesOfDay = {}
 local trueTimer = 0
 local cheeseScale = 0.001
 local cheeseTimer = 10
-local showCheese = false
+local cheeseReplacement = {}
+local cheeseCounter = 1
+
+
 
 
 --question list
@@ -79,8 +82,14 @@ function love.load()
   timesOfDay[3] = love.graphics.newImage("assets/darknight1.png")
   -- Car
   car = love.graphics.newImage("assets/forward.png")
+
+  -- Cheese Mayhem
   cheese = love.graphics.newImage("assets/cheese.jpg")
+  for i = 1,15 do
+    cheeseReplacement[i] = {love.graphics.newImage("assets/Slide"..i..".png"),0}
+  end
 end
+
  
 function love.draw()
   local screenWidth = love.graphics.getWidth()
@@ -112,15 +121,17 @@ function love.draw()
     current = math.random(1,3)
     current2 = math.random(1,4)
     cheeseTimer = 10
+    if cheeseCounter ~= 15 then
+      cheeseCounter = cheeseCounter + 1
+    end
   end
   love.graphics.draw(timesOfDay[current], 0, 0)
   love.graphics.draw(areas[current2], 0, 180, 0, 2, 1.8)
   --cheese banner
   if (cheeseTimer > 0 and cheeseTimer < 5) then
-    love.graphics.draw(cheese,360,240,0,cheeseScale)
+    love.graphics.draw(cheeseReplacement[cheeseCounter][1],360,240,0,cheeseScale)
   else
     cheeseScale = 0.002
-    showCheese = not showCheese
   end
   --timer
   love.graphics.print("Timer: " .. math.floor(trueTimer),40,20)
