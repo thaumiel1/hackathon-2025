@@ -141,7 +141,10 @@ function love.draw()
   --display "insurance cost"
   love.graphics.print("Insurance: £"..numbers[displayNum], 40, 20)
   --the end times
-  love.graphics.draw(trophy, 325, 10)
+  if cheeseCounter == 14 then
+    love.graphics.clear()
+    love.graphics.draw(trophy, 275, 10)
+  end
 end
 
 function love.update(dt)
