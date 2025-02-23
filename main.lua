@@ -24,6 +24,27 @@ function initVariables()
   cheeseReplacement = {}
 end
 
+function loadImages()
+  areas[1] = love.graphics.newImage("assets/side of road5.png")
+  areas[2] = love.graphics.newImage("assets/side of road4.png")
+  areas[3] = love.graphics.newImage("assets/side of road6.png")
+  areas[4] = love.graphics.newImage("assets/side of road7.png")
+  timesOfDay[1] = love.graphics.newImage("assets/day1.png")
+  timesOfDay[2] = love.graphics.newImage("assets/night1.png")
+  timesOfDay[3] = love.graphics.newImage("assets/darknight1.png")
+  --car
+  car = love.graphics.newImage("assets/forward.png")
+
+  for i = 1,13 do
+    cheeseReplacement[i] = {love.graphics.newImage("assets/Slide"..i..".png"),0}
+  end
+  cheeseReplacement[1][2], cheeseReplacement[2][2], cheeseReplacement[10][2],cheeseReplacement[11][2] = 1,1,1,1
+  cheeseReplacement[5][2], cheeseReplacement[12][2], cheeseReplacement[13][2] = 2,2,2
+  --trophy
+  trophy = love.graphics.newImage("assets/hooray.jpg")
+
+end
+
 function love.keypressed(key, scancode, isrepeat)
   if key == "right" then
     state = state + 1
@@ -39,9 +60,12 @@ function love.keypressed(key, scancode, isrepeat)
   end
 end
 
+
+
 function love.load()
   initConstants()
   initVariables()
+  loadImages()
   -- background/road colour
   love.graphics.setBackgroundColor(0.3, 0.3, 0.3)     
   -- Initialize lines with a delay
@@ -49,26 +73,8 @@ function love.load()
     table.insert(lines, {y = startY, width = 1, height = 1, delay = (i - 1) * delay, active = false})
   end
   
-  -- Load images for areas
-  --ground
-  areas[1] = love.graphics.newImage("assets/side of road5.png")
-  areas[2] = love.graphics.newImage("assets/side of road4.png")
-  areas[3] = love.graphics.newImage("assets/side of road6.png")
-  areas[4] = love.graphics.newImage("assets/side of road7.png")
-  --sky
-  timesOfDay[1] = love.graphics.newImage("assets/day1.png")
-  timesOfDay[2] = love.graphics.newImage("assets/night1.png")
-  timesOfDay[3] = love.graphics.newImage("assets/darknight1.png")
-  -- Car
-  car = love.graphics.newImage("assets/forward.png")
-  -- Cheese Mayhem
-  for i = 1,13 do
-    cheeseReplacement[i] = {love.graphics.newImage("assets/Slide"..i..".png"),0}
-  end
-  cheeseReplacement[1][2], cheeseReplacement[2][2], cheeseReplacement[10][2],cheeseReplacement[11][2] = 1,1,1,1
-  cheeseReplacement[5][2], cheeseReplacement[12][2], cheeseReplacement[13][2] = 2,2,2
-  --trophy
-  trophy = love.graphics.newImage("assets/hooray.jpg")
+
+
 end
 
  
