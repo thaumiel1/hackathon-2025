@@ -140,8 +140,11 @@ function love.draw()
   end
   --display "insurance cost"
   love.graphics.print("Insurance: £"..numbers[displayNum], 40, 20)
+<<<<<<< HEAD
   --the end times
   love.graphics.draw(trophy, 325, 10)
+=======
+>>>>>>> 542d5b323306c562ccdf4000ab2f51081c312def
 end
 
 function love.update(dt)
