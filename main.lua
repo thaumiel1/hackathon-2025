@@ -1,3 +1,44 @@
+function love.load()
+  initConstants()
+  initVariables()
+  loadImages()
+  initLines()
+  -- background/road colour
+  love.graphics.setBackgroundColor(0.3, 0.3, 0.3)     
+end
+
+function love.update(dt)
+  updateLines(dt)
+  moveCar()
+  updateCheeseBanner(dt)
+end
+
+function love.draw()
+  drawRoad()
+  love.graphics.setColor(1, 1, 1) 
+  updateBackground()
+  --draw car
+  love.graphics.draw(car, carCoord[1], carCoord[2])
+  drawCheeseBanner()
+  --display "insurance cost"
+  love.graphics.print("Insurance: £"..numbers[11-cheeseScore], 40, 20)
+  checkEndGame()
+end
+
+function love.keypressed(key, scancode, isrepeat)
+  if key == "right" then
+    state = state + 1
+  elseif key == "left" then
+    state = state - 1
+  elseif key == "escape" then
+    love.event.quit()
+  end
+  if state > 2 then
+    state = 2
+  elseif state < 1 then
+    state = 1
+  end
+end
 
 
 function initConstants()
@@ -45,33 +86,6 @@ function loadImages()
 
 end
 
-function love.keypressed(key, scancode, isrepeat)
-  if key == "right" then
-    state = state + 1
-  elseif key == "left" then
-    state = state - 1
-  elseif key == "escape" then
-    love.event.quit()
-  end
-  if state > 2 then
-    state = 2
-  elseif state < 1 then
-    state = 1
-  end
-end
-
-
-
-function love.load()
-  initConstants()
-  initVariables()
-  loadImages()
-  initLines()
-
-  -- background/road colour
-  love.graphics.setBackgroundColor(0.3, 0.3, 0.3)     
-end
-
 function initLines()
 -- Initialize lines 
   for i = 1, numLines do
@@ -79,8 +93,32 @@ function initLines()
   end
 end
 
- 
-function love.draw()
+
+function drawCheeseBanner()
+   --cheese banner
+   if (cheeseTimer > 0 and cheeseTimer < 5 and cheeseCounter ~= 14) then
+    love.graphics.setLineWidth(20)
+    love.graphics.setColor(1-cheeseTimer/5,1*cheeseTimer/5,0)
+    love.graphics.line(800*(cheeseTimer/5),0,0,0)
+    love.graphics.setColor(1,1,1)
+    love.graphics.print("Y",20,350,0,10)
+    love.graphics.print("N",680,350,0,10)
+    love.graphics.draw(cheeseReplacement[cheeseCounter][1],400-(720*cheeseScale/2),240-(405*cheeseScale/2),0,cheeseScale)
+  else
+    cheeseScale = 0.002
+  end
+end
+
+function checkEndGame()
+   --the end times
+   if cheeseCounter == 14 then
+    love.graphics.clear()
+    love.graphics.draw(trophy, 275, 10)
+    love.graphics.print("Insurance: £10000000000000000000000000000000000000000000000000000000000000000000000000000", 10, 300)
+  end
+end
+
+function drawRoad()
   -- draw road
   local screenWidth = love.graphics.getWidth()
   for _, line in ipairs(lines) do
@@ -103,14 +141,16 @@ function love.draw()
       )
     end
   end
-  love.graphics.setColor(1, 1, 1) 
-  --draw car
-  love.graphics.draw(car, carCoord[1], carCoord[2])
+end
+
+function updateBackground()
   --draw background
   if cheeseTimer < 0 then
     current = math.random(3)
     current2 = math.random(4)
     cheeseTimer = 10
+
+    --car position//scoring
     local carPos = 0
     if carCoord[1]+1 < 400 then
       carPos = 1
@@ -126,30 +166,12 @@ function love.draw()
       cheeseCounter = cheeseCounter + 1
     end
   end
-  --background
-  love.graphics.draw(timesOfDay[current], 0, 0)
-  love.graphics.draw(areas[current2], 0, 180, 0, 2, 1.8)
-  --cheese banner
-  if (cheeseTimer > 0 and cheeseTimer < 5 and cheeseCounter ~= 14) then
-    love.graphics.setLineWidth(20)
-    love.graphics.setColor(1-cheeseTimer/5,1*cheeseTimer/5,0)
-    love.graphics.line(800*(cheeseTimer/5),0,0,0)
-    love.graphics.setColor(1,1,1)
-    love.graphics.print("Y",20,350,0,10)
-    love.graphics.print("N",680,350,0,10)
-    love.graphics.draw(cheeseReplacement[cheeseCounter][1],400-(720*cheeseScale/2),240-(405*cheeseScale/2),0,cheeseScale)
-  else
-    cheeseScale = 0.002
-  end
-  --display "insurance cost"
-  love.graphics.print("Insurance: £"..numbers[11-cheeseScore], 40, 20)
-  --the end times
-  if cheeseCounter == 14 then
-    love.graphics.clear()
-    love.graphics.draw(trophy, 275, 10)
-    love.graphics.print("Insurance: £10000000000000000000000000000000000000000000000000000000000000000000000000000", 10, 300)
-  end
+    --background
+    love.graphics.draw(timesOfDay[current], 0, 0)
+    love.graphics.draw(areas[current2], 0, 180, 0, 2, 1.8)
+
 end
+
 
 function updateLines(dt)
   local screenHeight = love.graphics.getHeight()
@@ -195,10 +217,3 @@ function updateCheeseBanner(dt)
   cheeseTimer = cheeseTimer - dt
 end
 
-function love.update(dt)
-
-  updateLines(dt)
-  moveCar()
-  updateCheeseBanner(dt)
-
-end
