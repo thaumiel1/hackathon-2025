@@ -121,7 +121,7 @@ function love.draw()
   --cheese banner
   if (cheeseTimer > 0 and cheeseTimer < 5 and cheeseCounter ~= 14) then
     love.graphics.setLineWidth(20)
-    love.graphics.setColor(0,1,0)
+    love.graphics.setColor(1-cheeseTimer/5,1*cheeseTimer/5,0)
     love.graphics.line(800*(cheeseTimer/5),0,0,0)
     love.graphics.setColor(1,1,1)
     love.graphics.print("Y",20,350,0,10)
