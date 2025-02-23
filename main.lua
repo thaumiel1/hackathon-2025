@@ -120,6 +120,12 @@ function love.draw()
   love.graphics.draw(areas[current2], 0, 180, 0, 2, 1.8)
   --cheese banner
   if (cheeseTimer > 0 and cheeseTimer < 5 and cheeseCounter ~= 14) then
+    love.graphics.setLineWidth(20)
+    love.graphics.setColor(0,1,0)
+    love.graphics.line(800*(cheeseTimer/5),0,0,0)
+    love.graphics.setColor(1,1,1)
+    love.graphics.print("Y",20,350,0,10)
+    love.graphics.print("N",680,350,0,10)
     love.graphics.draw(cheeseReplacement[cheeseCounter][1],400-(720*cheeseScale/2),240-(405*cheeseScale/2),0,cheeseScale)
   else
     cheeseScale = 0.002
