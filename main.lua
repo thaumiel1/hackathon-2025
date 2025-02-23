@@ -28,7 +28,6 @@ local speed = 1
 local areas = {}
 local timesOfDay = {}
 
-local trueTimer = 0
 local cheeseScale = 0.001
 local cheeseTimer = 10
 local cheeseReplacement = {}
@@ -137,10 +136,8 @@ function love.draw()
   else
     cheeseScale = 0.002
   end
-  --timer
-  love.graphics.print("Timer: " .. math.floor(trueTimer),40,20)
   --display "insurance cost"
-  love.graphics.print("Insurance: £"..numbers[displayNum], 500, 20)
+  love.graphics.print("Insurance: £"..numbers[displayNum], 40, 20)
 end
 
 function love.update(dt)
@@ -178,6 +175,5 @@ function love.update(dt)
   then
     cheeseScale = cheeseScale + 0.002
   end
-  trueTimer = trueTimer + dt
   cheeseTimer = cheeseTimer - dt
 end
