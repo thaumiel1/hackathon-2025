@@ -114,8 +114,10 @@ function love.draw()
     if carCoord[1]+1 < 400 then
       carPos = 1
     end
-    if carPos == cheeseReplacement[cheeseCounter][2] then
-      cheeseScore = cheeseScore + 1
+    if cheeseCounter < 14 then
+      if carPos == cheeseReplacement[cheeseCounter][2] then
+        cheeseScore = cheeseScore + 1
+      end
     end
     --change displayNum
     displayNum = math.random(2, 12)
