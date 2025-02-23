@@ -4,21 +4,18 @@ local carCoord = {100,450}
 local state = 1
 local current = 1
 local current2 = 1
-local displayNum = 1
 local numbers = {
 0,
+"e^i(pi)",
+"6.02214*10^-23",
+"1.6180339887498948482",
 "3.1415926535897932384626433", 
-"6.02214*10^-23", 
-299792458, 
-"e=mc^2", 
-"9223372036854775807", 
-"O(nlog n)", 
-"01123581321345589144", 
-80085,
 42,
-"69!",
-"sqrt(-1)",
-"sin^2(x) + cos^2(x)"}
+80085,
+299792458, 
+"9223372036854775807", 
+"01123581321345589144", 
+"69!"}
 
 local lines = {}
 local numLines = 1000 -- Number of lines
@@ -28,10 +25,12 @@ local speed = 1
 local areas = {}
 local timesOfDay = {}
 
+--Cheese Squad
 local cheeseScale = 0.001
 local cheeseTimer = 10
 local cheeseReplacement = {}
 local cheeseCounter = 1
+local cheeseScore = 0
 
 
 function love.keypressed(key, scancode, isrepeat)
@@ -73,6 +72,8 @@ function love.load()
   for i = 1,13 do
     cheeseReplacement[i] = {love.graphics.newImage("assets/Slide"..i..".png"),0}
   end
+  cheeseReplacement[1][2], cheeseReplacement[2][2], cheeseReplacement[10][2],cheeseReplacement[11][2] = 1,1,1,1
+  cheeseReplacement[5][2], cheeseReplacement[12][2], cheeseReplacement[13][2] = 2,2,2
   --trophy
   trophy = love.graphics.newImage("assets/hooray.jpg")
 end
@@ -109,6 +110,13 @@ function love.draw()
     current = math.random(3)
     current2 = math.random(4)
     cheeseTimer = 10
+    local carPos = 0
+    if carCoord[1]+1 < 400 then
+      carPos = 1
+    end
+    if carPos == cheeseReplacement[cheeseCounter][2] then
+      cheeseScore = cheeseScore + 1
+    end
     --change displayNum
     displayNum = math.random(2, 12)
     if cheeseCounter ~= 14 then
@@ -131,7 +139,7 @@ function love.draw()
     cheeseScale = 0.002
   end
   --display "insurance cost"
-  love.graphics.print("Insurance: £"..numbers[displayNum], 40, 20)
+  love.graphics.print("Insurance: £"..numbers[11-cheeseScore], 40, 20)
   --the end times
   if cheeseCounter == 14 then
     love.graphics.clear()
